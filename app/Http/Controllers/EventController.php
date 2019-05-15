@@ -84,8 +84,13 @@ class EventController extends Controller
         //
     }
 
-    public function detail(){
-        return view ('updateEvent', ['r']);
+    public function detail($id){
+        $detailEvent = DB::table('events')->select('*')->where('idEvent',$id)->get();
+        $detailEvent[0]->newStart = date('m/d/Y', strtotime($detailEvent[0]->tanggalMulai));
+        $detailEvent[0]->newEnd = date('m/d/Y', strtotime($detailEvent[0]->perkiraanSelesai));
+        // $detailEvent[0]->y = 'a';
+        // echo json_encode($detailEvent[0]);
+        return view ('updateEvent', compact('detailEvent'));
     }
 
     /**
