@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 // use auth;
 use App\Event;
+use App\Kegiatan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -38,13 +39,6 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        // create new object event
-        // $this->validate($request, [
-        //     'namaEvent' => 'required',
-        //     'tanggalMulai' => 'required',
-        //     'perkiraanSelesai' => 'required',
-        // ]);
-        // dd($request->all());
 
         $event = new Event();
         //fill the object
@@ -88,9 +82,19 @@ class EventController extends Controller
         $detailEvent = DB::table('events')->select('*')->where('idEvent',$id)->get();
         $detailEvent[0]->newStart = date('m/d/Y', strtotime($detailEvent[0]->tanggalMulai));
         $detailEvent[0]->newEnd = date('m/d/Y', strtotime($detailEvent[0]->perkiraanSelesai));
+
+        $kegiatan = DB::table('kegiatans')
+        ->where('idEvent', $id)
+        ->select('*')->get();
+
+        for($i = 0; $i<count($kegiatan); $i++) {
+            $split = explode(' ', $kegiatan[$i]->tanggalWaktuKegiatans);
+            $kegiatan[$i]->tanggal = $split[0];
+            $kegiatan[$i]->waktu = $split[1];
+        }
         // $detailEvent[0]->y = 'a';
         // echo json_encode($detailEvent[0]);
-        return view ('updateEvent', compact('detailEvent'));
+        return view ('updateEvent', compact('detailEvent', 'kegiatan'));
     }
 
     /**
@@ -100,24 +104,29 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $this->validate($request, [
-            'namaEvent' => 'required',
-            'tanggalMulai' => 'required',
-            'perkiraanSelesai' => 'required',
 
-        ]);
-        $event= Event::find($id);
+        DB::table('events')
+            ->where('idEvent', $request->post('idEvent'))
+            ->update([
+                'namaEvent' => $request->post('namaEvent'),
+                'deskripsiEvent' => $request->post('deskripsiEvent'),
+                'tanggalMulai' => $request->post('startDate'),
+                'perkiraanSelesai' => $request->post('endDate')
+            ]);
+        // print_r($event);
 
-        $event->namaEvent = $request->namaEvent;
-        $event->tanggalMulai = $request->tanggalMulai;
-        $event->perkiraanSelesai = $request->perkiraanSelesai;
-        $event->deskripsiEvent = $request->deskripsiEvent;
-        $event->save();
-        Session::flash('message', 'Sukses mengubah data kegiatan !');
-        return redirect('/kegiatan'); // Set redirect ketika berhasil
+        // Session::flash('message', 'Sukses mengubah data kegiatan !');
+        return redirect('admin/event/detail/'.$request->post('idEvent')); // Set redirect ketika berhasil
+
     }
+
+    // public function tambahKegiatan(Request $request)
+    // {
+    //   DB::table('event_kegiatans')
+
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -129,4 +138,5 @@ class EventController extends Controller
     {
         //
     }
+    // comment batas /////////////////////////////////////////////////////////////////////////////////////////////////////
 }

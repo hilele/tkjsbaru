@@ -27,6 +27,9 @@ Route::group(['prefix' => 'admin'], function()
     Route::post('/event/store', 'EventController@store');
     Route::post('/event/update','EventController@update');
     Route::get('/event/detail/{id}', 'EventController@detail');
+    Route::get('/event/detail', 'KegiatanController@index');
+    Route::post('/kegiatan/store', 'KegiatanController@store');
+
 	});
 });
 

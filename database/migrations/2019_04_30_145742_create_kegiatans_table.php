@@ -15,13 +15,14 @@ class CreateKegiatansTable extends Migration
     {
         Schema::create('kegiatans', function (Blueprint $table) {
             $table->increments('idKegiatan');
-
             $table->integer('idEvent')->unsigned();
             $table->foreign('idEvent')
                 ->references('idEvent')->on('events')
                 ->onDelete('cascade');
-            $table->string('namaKegiatans', 50);
-            $table->dateTime('tanggalWaktuKegiatans');
+            $table->string('namaKegiatan', 50);
+            $table->date('tanggalKegiatan');
+            $table->time('waktuKegiatan');
+            $table->tinyInteger('isDeleted')->default(0);
             $table->timestamps();
         });
     }

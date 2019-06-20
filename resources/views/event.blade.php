@@ -12,8 +12,8 @@
 <!-- Heading -->
 <!-- Table with panel -->
 <div class="card card-cascade narrower">
-  <div>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#m_add_event">baru</button>
+  <div class="text-right">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#m_add_event" style="margin : 10px">Buat Baru</button>
   </div>
     <!--/Card image-->
   <div class="px-4">

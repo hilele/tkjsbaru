@@ -14,7 +14,7 @@ class CreateKegiatanPesertasTable extends Migration
     public function up()
     {
         Schema::create('kegiatan_pesertas', function (Blueprint $table) {
-            $table->increments('idKegiatanPeserta');
+            $table->bigIncrements('idKegiatanPeserta');
             $table->integer('idEventKegiatan')->unsigned();
             $table->foreign('idEventKegiatan')
                 ->references('idEventKegiatan')->on('event_kegiatans')
@@ -27,7 +27,8 @@ class CreateKegiatanPesertasTable extends Migration
             $table->foreign('idPeserta')
                 ->references('idPeserta')->on('pesertas')
                 ->onDelete('cascade');
-            $table->integer('nilai')->default(0);
+            $table->integer('nilai')->nullable();
+            $table->tinyInteger('isDeleted')->default(0);
             $table->timestamps();
         });
     }

@@ -22,6 +22,7 @@ class CreateEventsTable extends Migration
             $table->string('createdBy', 20);
             $table->string('deletedBy', 20)->nullable();
             $table->boolean('finished')->default(0);
+            $table->tinyInteger('isDeleted')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
