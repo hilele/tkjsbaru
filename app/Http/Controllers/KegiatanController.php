@@ -42,7 +42,16 @@ class KegiatanController extends Controller
         $kegiatan->idEvent = $request->get('idEvent');
         $kegiatan->save();
 
+        return redirect ('admin/detail/{id}');
     }
+
+    // public function deleteKegiatan($id){
+    //     $kegiatan = DB::table('kegiatans')
+    //     ->where('idEvent', $id)
+    //     ->update([
+    //         'isDeleted' => post(1);
+    //     ]);
+    // }
 
 
     /**

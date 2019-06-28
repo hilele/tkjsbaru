@@ -51,7 +51,7 @@
 </div>
 <!-- Central Modal Small -->
 
-<!-- modal update kegiatan-->
+<!-- modal tambah kegiatan-->
 <!-- Central Modal Small -->
 <div class="modal fade" id="m_tambah_kegiatan" tabindex="-1" role="dialog" >
   <!-- Change class .modal-sm to change the size of the modal -->
@@ -79,12 +79,12 @@
             <label for="datetimepicker" class="form-control-label">Waktu Kegiatan:</label><br>
             <input class="form-control" type="time" name="waktuKegiatan" value="" placeholder="Waktu Kegiatan"/>
           </div>
-          <div class="form-group">
+          {{-- <div class="form-group">
             <label for="kelengkapanKegiatan" class="form-control-label">Kelengkapan Kegiatan:</label><br>
             <input class="" type="checkbox" name="materi" value="materi"/>Materi Training<br>
             <input class="" type="checkbox" name="diskusiPresentasi" value="diskusiPresentasi"/>Diskusi dan Presentasi <br>
             <input class="" type="checkbox" name="kumpulTugas" value="tugas"/>Mengumpulkan Tugas<br>
-          </div>
+          </div> --}}
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
@@ -95,7 +95,51 @@
   </div>
 </div>
 
-<!-- /Central Modal Tambah Kegiatan -->
+<!-- modal update kegiatan-->
+<!-- Central Modal Small -->
+<div class="modal fade" id="m_update_kegiatan" tabindex="-1" role="dialog" >
+    <!-- Change class .modal-sm to change the size of the modal -->
+      <div class="modal-dialog modal-sm " role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+          <h4 class="modal-title w-100" id="myModalLabel">Perbaharui Kegatan</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form method="post" action="{{url('/admin/kegiatan/store')}}" >
+            <div class="modal-body">
+            <input type="text" name="idEvent" value="{{$detailEvent[0]->idEvent}}" hidden>
+            <div class="form-group">
+              <label for="namaKegiatan" class="form-control-label">Nama Kegiatan:</label>
+              <input type="text" class="form-control" name="namaKegiatan" value="{{$kegiatan[0]->namaKegiatan}}">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Tanggal Kegiatan:</label><br>
+              <input class="form-control" type="text" name="tanggalKegiatan" value="{{$kegiatan[0]->tanggalKegiatan}}"/>
+            </div>
+            <div class="form-group">
+              <label for="datetimepicker" class="form-control-label">Waktu Kegiatan:</label><br>
+              <input class="form-control" type="time" name="waktuKegiatan" value="{{$kegiatan[0]->waktuKegiatan}}"/>
+            </div>
+            {{-- <div class="form-group">
+              <label for="kelengkapanKegiatan" class="form-control-label">Kelengkapan Kegiatan:</label><br>
+              <input class="" type="checkbox" name="materi" value="materi"/>Materi Training<br>
+              <input class="" type="checkbox" name="diskusiPresentasi" value="diskusiPresentasi"/>Diskusi dan Presentasi <br>
+              <input class="" type="checkbox" name="kumpulTugas" value="tugas"/>Mengumpulkan Tugas<br>
+            </div> --}}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary btn-sm">Save changes</button>
+          </div>
+          </form>
+      </div>
+    </div>
+  </div>
+
+
+<!-- /Central Modal Tambah event -->
 <div class="card mb-2">
   <div class="card-body">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -125,10 +169,11 @@
           <label>{{$detailEvent[0]->deskripsiEvent}}</label><br>
         </div>
       </div>
+
+
       <div class="tab-pane fade text-right" id="profile" role="tabpanel" aria-labelledby="profile-tab">
         <div class="text-right">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#m_tambah_kegiatan">Tambah Kegiatan</button>
-          {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#m_update_kegiatan">Perbarui</button> --}}
         </div>
         <div class="px-4">
             <div class="table-wrapper">
@@ -148,11 +193,14 @@
                 <tbody>
                   @foreach($kegiatan as $data)
                   <tr>
-                    <td>{{$data->namaKegiatans}}</td>
-                    <td>{{$data->tanggal}}</td>
-                    <td>{{$data->waktu}}</td>
-                    <td style="padding: 5 !important"><a href={{ url('admin/event/detail', [$data->idKegiatan])}}><button type="button" class="btn btn-info btn-sm">detail</button></a></td>
-                  </tr>
+                    <td>{{$data->namaKegiatan}}</td>
+                    <td>{{$data->tanggalKegiatan}}</td>
+                    <td>{{$data->waktuKegiatan}}</td>
+                    <td style="padding: 1 !important">
+                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#m_update_kegiatan">update</button>
+                    </td>
+                    <td style="padding: 1 !important"><button type="button" class="btn btn-outline-danger waves-effect btn-sm">X</button></td>
+                    </tr>
                   @endforeach
                 </tbody>
                     <!--Table body-->
@@ -163,7 +211,6 @@
     </div>
       <div class="tab-pane fade text-right" id="contact" role="tabpanel" aria-labelledby="contact-tab">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#m_tambah_peserta">Tambah Peserta</button>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#m_import_peserta">import excell</button>
       </div>
     </div>
   </div>
@@ -196,7 +243,10 @@ $('input[name="daterangeUpdate"]').daterangepicker({
       singleDatePicker: true,
       showDropdowns: true,
       minYear: 1901,
-      maxYear: parseInt(moment().format('YYYY'),10)
+      maxYear: parseInt(moment().format('YYYY'),10),
+      locale: {
+        format: 'YYYY-MM-DD'
+      }
     }, function(start, end, label) {
       console.log(moment(start).format("YYYY-MM-DD"));
     });

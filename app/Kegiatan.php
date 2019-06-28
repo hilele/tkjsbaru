@@ -8,5 +8,5 @@ class Kegiatan extends Model
 {
     protected $table="kegiatans";
 	protected $primaryKey="idKegiatan";
-	protected $fillable=['namaKegiatans','tanggalKegiatans', 'waktuKegiatan'];
+	protected $fillable=['namaKegiatan','tanggalKegiatan', 'waktuKegiatan'];
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 // use auth;
 use App\Event;
 use App\Kegiatan;
+use App\auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -46,7 +47,7 @@ class EventController extends Controller
         $event->tanggalMulai = $request->get('startDate');
         $event->perkiraanSelesai = $request->get('endDate');
         $event->deskripsiEvent = $request->get('deskripsiEvent');
-        $event->createdBy = "bambang";
+        $event->createdBy = 'auth::user()->name';
 
         $event->save();
         return redirect('/admin/event')->with('success', 'Event berhasil dibuat');;
@@ -87,11 +88,11 @@ class EventController extends Controller
         ->where('idEvent', $id)
         ->select('*')->get();
 
-        for($i = 0; $i<count($kegiatan); $i++) {
-            $split = explode(' ', $kegiatan[$i]->tanggalWaktuKegiatans);
-            $kegiatan[$i]->tanggal = $split[0];
-            $kegiatan[$i]->waktu = $split[1];
-        }
+        // for($i = 0; $i<count($kegiatan); $i++) {
+        //     $split = explode(' ', $kegiatan[$i]->tanggalWaktuKegiatans);
+        //     $kegiatan[$i]->tanggal = $split[0];
+        //     $kegiatan[$i]->waktu = $split[1];
+        // }
         // $detailEvent[0]->y = 'a';
         // echo json_encode($detailEvent[0]);
         return view ('updateEvent', compact('detailEvent', 'kegiatan'));
@@ -116,8 +117,6 @@ class EventController extends Controller
                 'perkiraanSelesai' => $request->post('endDate')
             ]);
         // print_r($event);
-
-        // Session::flash('message', 'Sukses mengubah data kegiatan !');
         return redirect('admin/event/detail/'.$request->post('idEvent')); // Set redirect ketika berhasil
 
     }
