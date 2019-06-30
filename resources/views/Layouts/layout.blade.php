@@ -57,11 +57,7 @@
       <a class="logo-wrapper waves-effect">
         <img src="http://js.ugm.ac.id/wp-content/uploads/sites/23/2018/06/logo-js-web.png" class="img-fluid" alt="">
       </a>
-
       <div class="list-group list-group-flush">
-        <a href="{{url ('admin/dashboard')}}" class="list-group-item active waves-effect">
-          <i class="fas fa-home mr-3"></i>Dashboard
-        </a>
         <a href="{{url ('admin/event')}}" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-calendar-alt mr-3"></i>Event</a>
         <a href="{{url ('admin/anggota')}}" class="list-group-item list-group-item-action waves-effect">

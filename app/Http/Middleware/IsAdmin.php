@@ -18,8 +18,8 @@ class isAdmin
         if (auth()->check() && $request->user()->role == 'isAdmin'){
             return $next($request);
         }
-        elseif (auth()->check() && $request->user()->role == 'superAdmin'){
-            return redirect('/superAdmin/home');
+        elseif (auth()->check() && $request->user()->role == 'isSuperAdmin'){
+            return redirect('superAdmin/homeSA');
         }
     }
 }

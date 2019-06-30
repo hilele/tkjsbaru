@@ -19,7 +19,7 @@ class isSuperAdmin
             return $next($request);
         }
         elseif (auth()->check() && $request->user()->role == 'isAdmin'){
-            return redirect('/admin/home');
+            return redirect('/admin/event');
         }
     }
 }
