@@ -58,10 +58,10 @@
         <img src="http://js.ugm.ac.id/wp-content/uploads/sites/23/2018/06/logo-js-web.png" class="img-fluid" alt="">
       </a>
       <div class="list-group list-group-flush">
-        <a href="{{url ('admin/anggota')}}" class="list-group-item list-group-item-action waves-effect">
+        <a href="{{url ('superAdmin/homeSA')}}" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-user mr-3"></i>User</a>
-        <a href="{{url ('admin/pengaturan')}}" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-cog mr-3"></i>Pengaturan</a>
+        <a href="{{url ('superAdmin/keluar')}}" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-cog mr-3"></i>Logout</a>
       </div>
 
     </div>
@@ -161,13 +161,9 @@
                   <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                 </div>
               </div>
-              <div>
-                  <label for="role" class="form-control-label">Role</label>
-                  <input type="text" class="role" name="role">
-              </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary btn-sm">Save changes</button>
+                <button type="submit" class="btn btn-primary btn-sm">Save</button>
               </div>
             </form>
           </div>

@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Kegiatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class KegiatanController extends Controller
+class PesertaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,8 @@ class KegiatanController extends Controller
      */
     public function index()
     {
-        echo var_dump(url()->current());
+        $peserta = DB::table('pesertas')->select('*')->get();
+        return view('peserta', compact('peserta'));
     }
 
     /**
@@ -36,28 +36,8 @@ class KegiatanController extends Controller
      */
     public function store(Request $request)
     {
-        $kegiatan = new Kegiatan();
-        $kegiatan->namaKegiatan = $request->get('namaKegiatan');
-        $kegiatan->tanggalKegiatan = $request->get('tanggalKegiatan');
-        $kegiatan->waktuKegiatan = $request->get('waktuKegiatan');
-        $kegiatan->idEvent = $request->get('idEvent');
-        $kegiatan->save();
-
-        return redirect ('admin/detail/{id}');
+        //
     }
-
-    public function deleteKegiatan($id){
-        $kegiatan = DB::table('kegiatans')
-        ->where('idKegiatan', $id)
-        ->update([
-            'isDeleted' => 1
-        ]);
-        $kegiatan2 = DB::table('kegiatans')
-        ->where('idKegiatan', $id)
-        ->select('idEvent')->get();
-        return redirect ('admin/event/detail/'.$kegiatan2[0]->idEvent);
-    }
-
 
     /**
      * Display the specified resource.

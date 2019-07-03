@@ -85,7 +85,10 @@ class EventController extends Controller
         $detailEvent[0]->newEnd = date('m/d/Y', strtotime($detailEvent[0]->perkiraanSelesai));
 
         $kegiatan = DB::table('kegiatans')
-        ->where('idEvent', $id)
+        ->where([
+            ['idEvent','=', $id],
+            ['isDeleted','=0']
+        ])
         ->select('*')->get();
 
         // for($i = 0; $i<count($kegiatan); $i++) {

@@ -60,12 +60,10 @@
       <div class="list-group list-group-flush">
         <a href="{{url ('admin/event')}}" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-calendar-alt mr-3"></i>Event</a>
-        <a href="{{url ('admin/anggota')}}" class="list-group-item list-group-item-action waves-effect">
+        <a href="{{url ('admin/peserta')}}" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-user mr-3"></i>Peserta</a>
-        <a href="{{url ('admin/suratKeputusan')}}" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-scroll mr-3"></i>Surat Keputusan</a>
-        <a href="{{url ('admin/pengaturan')}}" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-cog mr-3"></i>Pengaturan</a>
+        <a href="{{url ('admin/keluar')}}" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-cog mr-3"></i>Logout</a>
       </div>
 
     </div>

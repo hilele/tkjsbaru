@@ -43,7 +43,7 @@ class RegisterController extends Controller
     }
 
     public function showAdmin(){
-        $show = DB::table('users')->select('*')->get();
+        $show = DB::table('users')->select('*')->where('role', 'isAdmin')->get();
         // print_r($show);
         return view('homeSA', compact('show'));
     }
@@ -75,5 +75,6 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+         redirect('/superAdmin/homeSA');
     }
 }

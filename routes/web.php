@@ -16,7 +16,6 @@ Route::get('/', function () {
 });
 
 
-
 Route::group(['prefix' => 'admin'], function()
 {
 	Route::group(['middleware' => ['web', 'auth', 'IsAdmin']], function () {
@@ -27,15 +26,17 @@ Route::group(['prefix' => 'admin'], function()
         Route::get('/event/detail/{id}', 'EventController@detail');
         Route::get('/event/detail', 'KegiatanController@index');
         Route::post('/kegiatan/store', 'KegiatanController@store');
-
+        Route::get('/keluar', 'Auth\LoginController@keluar');
+        Route::get('/deleteKegiatan/{id}', 'KegiatanController@deleteKegiatan');
+        Route::get('/peserta', 'PesertaController@index');
 	});
 });
 
 Route::group(['prefix' => 'superAdmin'], function()
 {
     Route::group(['middleware' => ['web', 'auth', 'IsSuperAdmin']], function () {
-        Route::get('/homeSA', 'Auth\RegisterController@showAdmin');
-        // Route::get('/', function(){ return redirect('superAdmin/home');});
+        Route::get('/', 'Auth\RegisterController@showAdmin');
+        Route::get('/keluar', 'Auth\LoginController@keluar');
 	});
 });
 

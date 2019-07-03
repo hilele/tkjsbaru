@@ -147,10 +147,10 @@
         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Umum</a>
         </li>
         <li class="nav-item">
-        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Kegiatan</a>
+        <a class="nav-link" id="kegiatan-tab" data-toggle="tab" href="#kegiatan" role="tab" aria-controls="kegiatan" aria-selected="false">Kegiatan</a>
         </li>
         <li class="nav-item">
-        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Peserta</a>
+        <a class="nav-link" id="peserta-tab" data-toggle="tab" href="#peserta" role="tab" aria-controls="peserta" aria-selected="false">Peserta</a>
         </li>
     </ul>
     <div class="tab-content" id="myTabContent">
@@ -169,9 +169,29 @@
           <label>{{$detailEvent[0]->deskripsiEvent}}</label><br>
         </div>
       </div>
-
-
-      <div class="tab-pane fade text-right" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        {{-- modal confirm --}}
+        <div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5>Hapus Kegiatan</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        Apakah anda yakin akan menghapus kegiatan ini?
+                        <input name="idKegiatan" hidden>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
+                    <button type="button" onclick="deleteKegiatan()" class="btn btn-primary btn-sm">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- //modal confirm --}}
+      <div class="tab-pane fade text-right" id="kegiatan" role="tabpanel" aria-labelledby="kegiatan-tab">
         <div class="text-right">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#m_tambah_kegiatan">Tambah Kegiatan</button>
         </div>
@@ -199,7 +219,7 @@
                     <td style="padding: 1 !important">
                         <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#m_update_kegiatan">update</button>
                     </td>
-                    <td style="padding: 1 !important"><button type="button" class="btn btn-outline-danger waves-effect btn-sm">X</button></td>
+                    <td style="padding: 1 !important"><a><button type="button" class="btn btn-outline-danger waves-effect btn-sm" data-toggle="modal" onclick="confirmModal({{$data->idKegiatan}})" data-target="#modalConfirm">X</button></a></td>
                     </tr>
                   @endforeach
                 </tbody>
@@ -209,7 +229,7 @@
             </div>
           </div>
     </div>
-      <div class="tab-pane fade text-right" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+      <div class="tab-pane fade text-right" id="peserta" role="tabpanel" aria-labelledby="peserta-tab">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#m_tambah_peserta">Tambah Peserta</button>
       </div>
     </div>
@@ -235,7 +255,7 @@ $('input[name="daterangeUpdate"]').daterangepicker({
 //   console.log(e.value);
 //   console.log(e.time);
 
-});
+// });
 </script>
 <script>
   $(function() {
@@ -253,7 +273,13 @@ $('input[name="daterangeUpdate"]').daterangepicker({
 
     $('input[name="tanggalKegiatan"]').on('apply.daterangepicker', function(ev, picker) {
       $(this).val(picker.startDate.format('YYYY-MM-DD') );
+    });
   });
-  });
+  function confirmModal(e) {
+      $('input[name="idKegiatan"').val(e);
+  };
+  function deleteKegiatan() {
+    window.location = '/admin/deleteKegiatan/' + $('input[name="idKegiatan"').val();
+  };
 </script>
 @endsection
